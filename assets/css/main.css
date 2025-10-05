@@ -1278,6 +1278,11 @@ img {
     color: var(--color-primary-500);
 }
 
+/* Variación secondary para el highlight del título */
+.section-header__title-highlight--secondary {
+    color: var(--color-secondary-500);
+}
+
 /* Subtítulo de sección reutilizable */
 .section-header__subtitle {
     font-size: var(--font-size-xl);
@@ -1288,6 +1293,83 @@ img {
     animation: scroll-fade-animation linear both;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
+}
+
+/* ===== SCROLL ANIMATION UTILITIES (GLOBAL & REUSABLE) ===== */
+/* 
+   Sistema modular de animaciones de scroll reutilizable
+   
+   Uso básico:
+   <div class="scroll-fade-in">Elemento básico</div>
+   <div class="scroll-fade-in scroll-delay-2">Con delay personalizado</div>
+   <div class="scroll-fade-in scroll-stagger-1">Primer elemento de serie</div>
+   <div class="scroll-fade-in scroll-stagger-2">Segundo elemento de serie</div>
+   
+   Para grupos de elementos (como cards):
+   <div class="scroll-fade-in scroll-stagger-1">Card 1</div>
+   <div class="scroll-fade-in scroll-stagger-2">Card 2</div>
+   <div class="scroll-fade-in scroll-stagger-3">Card 3</div>
+*/
+
+/* Clase base para animaciones de scroll */
+.scroll-fade-in {
+    /* Navegadores modernos con view-timeline */
+    animation: scroll-fade-up-animation linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 25%;
+}
+
+/* Fallback para navegadores sin soporte de view-timeline */
+@supports not (animation-timeline: view()) {
+    .scroll-fade-in {
+        animation: fadeIn 0.8s ease-out forwards;
+        opacity: 0;
+        animation-delay: 0.1s; /* Delay base */
+    }
+}
+
+/* ===== MODIFICADORES DE STAGGER (Elementos en secuencia) ===== */
+/* Para elementos que deben aparecer en secuencia como cards */
+
+@supports (animation-timeline: view()) {
+    .scroll-stagger-1 { animation-range: entry -20% cover 10%; }
+    .scroll-stagger-2 { animation-range: entry 0% cover 30%; }
+    .scroll-stagger-3 { animation-range: entry 20% cover 50%; }
+    .scroll-stagger-4 { animation-range: entry 40% cover 70%; }
+    .scroll-stagger-5 { animation-range: entry 60% cover 90%; }
+}
+
+@supports not (animation-timeline: view()) {
+    .scroll-stagger-1 { animation-delay: 0.1s; }
+    .scroll-stagger-2 { animation-delay: 0.5s; }
+    .scroll-stagger-3 { animation-delay: 0.9s; }
+    .scroll-stagger-4 { animation-delay: 1.3s; }
+    .scroll-stagger-5 { animation-delay: 1.7s; }
+}
+
+/* ===== MODIFICADORES DE DELAY PERSONALIZADO ===== */
+/* Para delays específicos sin seguir el patrón de stagger */
+
+@supports not (animation-timeline: view()) {
+    .scroll-delay-1 { animation-delay: 0.1s; }
+    .scroll-delay-2 { animation-delay: 0.2s; }
+    .scroll-delay-3 { animation-delay: 0.3s; }
+    .scroll-delay-4 { animation-delay: 0.4s; }
+    .scroll-delay-5 { animation-delay: 0.5s; }
+    .scroll-delay-6 { animation-delay: 0.6s; }
+    .scroll-delay-7 { animation-delay: 0.7s; }
+    .scroll-delay-8 { animation-delay: 0.8s; }
+    .scroll-delay-9 { animation-delay: 0.9s; }
+    .scroll-delay-10 { animation-delay: 1.0s; }
+}
+
+/* ===== MODIFICADORES DE RANGO PERSONALIZADO ===== */
+/* Para elementos que necesitan rangos específicos de activación */
+
+@supports (animation-timeline: view()) {
+    .scroll-early { animation-range: entry -30% cover 0%; }
+    .scroll-late { animation-range: entry 30% cover 60%; }
+    .scroll-center { animation-range: entry -10% cover 40%; }
 }
 
 /* ===== FADE-IN UTILITIES (GLOBAL) ===== */
@@ -2014,32 +2096,13 @@ img {
     height: 100%;
 }
 
-/* Animación de scroll moderna para navegadores compatibles */
-@supports (animation-timeline: view()) {
-    .features__card {
-        animation: scroll-fade-up-animation linear both;
-        animation-timeline: view();
-        animation-range: entry 0% cover 25%;
-    }
-    
-    /* Efecto de stagger muy pronunciado - diferencia muy notoria */
-    .features__card:nth-child(1) { animation-range: entry -20% cover 10%; }
-    .features__card:nth-child(2) { animation-range: entry 0% cover 30%; }
-    .features__card:nth-child(3) { animation-range: entry 20% cover 50%; }
-    .features__card:nth-child(4) { animation-range: entry 40% cover 70%; }
-}
-
-/* Fallback para navegadores sin soporte */
-@supports not (animation-timeline: view()) {
-    .features__card {
-        animation: fadeIn 0.8s ease-out forwards;
-    }
-    
-    .features__card:nth-child(1) { animation-delay: 0.1s; }
-    .features__card:nth-child(2) { animation-delay: 0.5s; }
-    .features__card:nth-child(3) { animation-delay: 0.9s; }
-    .features__card:nth-child(4) { animation-delay: 1.3s; }
-}
+/* Las animaciones ahora se manejan con clases utilitarias en HTML */
+/* Ejemplo de uso en HTML:
+   <div class="features__card scroll-fade-in scroll-stagger-1">Card 1</div>
+   <div class="features__card scroll-fade-in scroll-stagger-2">Card 2</div>
+   <div class="features__card scroll-fade-in scroll-stagger-3">Card 3</div>
+   <div class="features__card scroll-fade-in scroll-stagger-4">Card 4</div>
+*/
 
 /* .features__card:hover {
     transform: translateY(-8px);
@@ -2279,33 +2342,14 @@ img {
 }
 
 /* Animaciones escalonadas para las cards */
-@supports (animation-timeline: view()) {
-    .references__card {
-        animation: scroll-fade-up-animation linear both;
-        animation-timeline: view();
-        animation-range: entry 0% cover 25%;
-    }
-    
-    .references__card:nth-child(1) { animation-range: entry -20% cover 10%; }
-    .references__card:nth-child(2) { animation-range: entry -10% cover 20%; }
-    .references__card:nth-child(3) { animation-range: entry 0% cover 30%; }
-    .references__card:nth-child(4) { animation-range: entry 10% cover 40%; }
-    .references__card:nth-child(5) { animation-range: entry 20% cover 50%; }
-}
-
-/* Fallback para navegadores sin soporte */
-@supports not (animation-timeline: view()) {
-    .references__card {
-        animation: fadeIn 0.8s ease-out forwards;
-        opacity: 0;
-    }
-    
-    .references__card:nth-child(1) { animation-delay: 0.1s; }
-    .references__card:nth-child(2) { animation-delay: 0.5s; }
-    .references__card:nth-child(3) { animation-delay: 0.9s; }
-    .references__card:nth-child(4) { animation-delay: 1.3s; }
-    .references__card:nth-child(5) { animation-delay: 1.7s; }
-}
+/* Las animaciones ahora se manejan con clases utilitarias en HTML */
+/* Ejemplo de uso en HTML:
+   <div class="references__card scroll-fade-in scroll-stagger-1">Card 1</div>
+   <div class="references__card scroll-fade-in scroll-stagger-2">Card 2</div>
+   <div class="references__card scroll-fade-in scroll-stagger-3">Card 3</div>
+   <div class="references__card scroll-fade-in scroll-stagger-4">Card 4</div>
+   <div class="references__card scroll-fade-in scroll-stagger-5">Card 5</div>
+*/
 
 /* Media queries para references */
 @media (max-width: 1199px) {
@@ -2395,5 +2439,245 @@ img {
     .references__card-name-container {
         min-width: 160px;
         padding: var(--space-sm) var(--space-lg);
+    }
+}
+
+/* ===== STORIES SECTION ===== */
+.stories {
+    padding: var(--space-3xl) 0;
+    background: var(--color-neutral-50);
+    position: relative;
+}
+
+/* Grid principal de historias */
+.stories__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2xl);
+    margin-top: var(--space-3xl);
+    align-items: stretch;
+}
+
+/* Columna de historia */
+.stories__column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    height: 100%;
+    position: relative;
+    transition: all var(--transition-normal);
+}
+
+/* Caja de alerta (tonos amarillos/alert) */
+.stories__alert {
+    background: linear-gradient(135deg, 
+        hsl(45deg, 100%, 94%) 0%, 
+        hsl(48deg, 100%, 88%) 100%);
+    border: 2px solid hsl(43deg, 74%, 66%);
+    border-radius: var(--border-radius-xl);
+    padding: var(--space-lg) var(--space-xl);
+    text-align: center;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: hsl(38deg, 46%, 35%);
+    line-height: 1.4;
+    width: 100%;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 16px hsla(45deg, 50%, 80%, 0.3);
+}
+
+/* Arrow SVG */
+.stories__arrow {
+    color: var(--color-neutral-400);
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: var(--space-sm) 0;
+}
+
+.stories__arrow svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Card de testimonio (tonos secondary/rosa) */
+.stories__card {
+    background: linear-gradient(135deg, 
+        hsl(334deg, 80%, 96%) 0%, 
+        hsl(334deg, 60%, 92%) 100%);
+    border: 2px solid var(--color-secondary-500);
+    border-radius: var(--border-radius-2xl);
+    padding: var(--space-xl);
+    width: 100%;
+    height: 100%;
+    position: relative;
+    box-shadow: 0 12px 24px hsla(334deg, 60%, 80%, 0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.stories__card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 40px hsla(334deg, 60%, 80%, 0.3),
+                0 8px 16px hsla(334deg, 80%, 70%, 0.2);
+    background: linear-gradient(135deg, 
+        hsl(334deg, 90%, 97%) 0%, 
+        hsl(334deg, 70%, 94%) 100%);
+}
+
+/* Header del card */
+.stories__card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+/* Perfil con imagen */
+.stories__card-profile {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.stories__card-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-secondary-400);
+}
+
+/* Info del perfil */
+.stories__card-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+/* Rating de estrellas - ahora arriba */
+.stories__card-rating {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    margin-bottom: var(--space-xs);
+}
+
+.stories__card-rating svg {
+    width: 16px;
+    height: 16px;
+    color: var(--color-secondary-500);
+}
+
+.stories__card-name {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-neutral-800);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.stories__card-subtitle {
+    font-size: var(--font-size-sm);
+    color: var(--color-neutral-600);
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* Contenido del testimonio */
+.stories__card-content {
+    /* margin-top: var(--space-lg); */
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.stories__card-text {
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-neutral-700);
+    margin: 0;
+    font-weight: var(--font-weight-regular);
+}
+
+/* Las animaciones ahora se manejan con clases utilitarias en HTML */
+/* Ejemplo de uso en HTML:
+   <div class="stories__column scroll-fade-in scroll-stagger-1">Columna 1</div>
+   <div class="stories__column scroll-fade-in scroll-stagger-2">Columna 2</div>
+   <div class="stories__column scroll-fade-in scroll-stagger-3">Columna 3</div>
+*/
+
+/* Media queries para stories */
+@media (max-width: 1199px) {
+    .stories__grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-xl);
+    }
+    
+    .stories__column:nth-child(3) {
+        grid-column: 1 / -1;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .stories {
+        padding: var(--space-3xl) 0;
+    }
+    
+    .stories__grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-2xl);
+        margin-top: var(--space-2xl);
+    }
+    
+    .stories__column:nth-child(3) {
+        grid-column: 1;
+        max-width: none;
+    }
+    
+    .stories__alert {
+        padding: var(--space-lg);
+        font-size: var(--font-size-sm);
+        min-height: 70px;
+    }
+    
+    .stories__card {
+        padding: var(--space-lg);
+    }
+    
+    .stories__card-header {
+        gap: var(--space-sm);
+        margin-bottom: var(--space-md);
+    }
+    
+    .stories__card-rating svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stories__alert {
+        padding: var(--space-md);
+        min-height: 60px;
+    }
+    
+    .stories__card {
+        padding: var(--space-md);
+    }
+    
+    .stories__card-img {
+        width: 40px;
+        height: 40px;
     }
 }
