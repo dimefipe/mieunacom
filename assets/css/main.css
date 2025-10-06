@@ -3404,89 +3404,107 @@ img {
 /* ===== FAQ SECTION ===== */
 .faq {
     padding: var(--space-3xl) 0;
-    background: var(--color-gray-50);
+    background: var(--color-neutral-50);
 }
 
 .faq__grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-xl);
-    max-width: 1000px;
+    gap: var(--space-lg);
+    max-width: 1200px;
     margin: 0 auto;
 }
 
 .faq__column {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-lg);
 }
 
 .faq__item {
     background: white;
-    border-radius: 12px;
-    border: 1px solid var(--color-gray-200);
+    border-radius: var(--border-radius-xl);
+    border: 1px solid var(--color-neutral-200);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+    button:focus {
+        outline: 0px solid var(--color-primary-500);
+        outline-offset: 0px;
+    }
 }
 
 .faq__item:hover {
-    border-color: var(--color-gray-300);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border-color: var(--color-neutral-300);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .faq__item--active {
     background: white;
-    border-color: var(--color-primary);
-    box-shadow: 0 8px 24px rgba(76, 187, 199, 0.15);
+    border-color: var(--color-primary-500);
+    box-shadow: 0 8px 24px hsla(var(--hue-primary), 66%, 58%, 0.2);
 }
 
 .faq__question {
     width: 100%;
-    padding: var(--space-lg);
+    padding: var(--space-xl) var(--space-xl);
     background: none;
     border: none;
+    outline: none;
     text-align: left;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: var(--space-md);
-    transition: all 0.3s ease;
+    align-items: center;
+    gap: var(--space-lg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-height: 80px;
 }
 
 .faq__question:hover {
-    background: var(--color-gray-50);
+    background: var(--color-neutral-50);
+}
+
+.faq__question:focus {
+    background: var(--color-neutral-50);
 }
 
 .faq__item--active .faq__question {
     background: var(--color-primary-500);
     color: white;
+    margin-bottom: 1px;
 }
 
-.faq__item--active .faq__question:hover {
-    background: var(--color-primary);
+.faq__item--active .faq__question:hover,
+.faq__item--active .faq__question:focus {
+    background: hsla(var(--hue-primary), 66%, 54%, 1);
 }
 
 .faq__question-text {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--font-size-lg);
+    font-weight: 500;
     line-height: 1.4;
-    color: var(--color-gray-800);
+    color: var(--color-neutral-700);
     flex: 1;
     transition: color 0.3s ease;
+    margin: 0;
 }
 
 .faq__item--active .faq__question-text {
     color: white;
+    font-weight: 500;
 }
 
 .faq__question-icon {
-    width: 20px;
-    height: 20px;
-    color: var(--color-gray-500);
+    width: 24px;
+    height: 24px;
+    color: var(--color-neutral-400);
     flex-shrink: 0;
-    transition: all 0.3s ease;
-    margin-top: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .faq__item--active .faq__question-icon {
@@ -3495,42 +3513,41 @@ img {
 }
 
 .faq__question-icon svg {
-    width: 100%;
-    height: 100%;
+    width: 16px;
+    height: 16px;
 }
 
 .faq__answer {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     background: white;
 }
 
-.faq__item--active .faq__answer {
-    max-height: 200px;
-    border-top: 1px solid var(--color-gray-200);
-}
-
 .faq__answer-content {
-    padding: 0 var(--space-lg) var(--space-lg);
-    color: var(--color-gray-700);
+    padding: var(--space-xl);
+    color: var(--color-neutral-600);
     line-height: 1.6;
-    font-size: 0.95rem;
+    font-size: var(--font-size-base);
 }
 
 /* Responsive para FAQ */
+@media (max-width: 1199px) {
+    .faq__grid {
+        max-width: 1000px;
+        gap: var(--space-lg);
+    }
+}
+
 @media (max-width: 991px) {
     .faq {
         padding: var(--space-2xl) 0;
     }
     
-    .faq__title {
-        font-size: 1.75rem;
-    }
-    
     .faq__grid {
         grid-template-columns: 1fr;
-        gap: var(--space-md);
+        gap: var(--space-lg);
+        max-width: 700px;
     }
 }
 
@@ -3539,50 +3556,54 @@ img {
         padding: var(--space-xl) 0;
     }
     
-    .faq__title {
-        font-size: 1.5rem;
-    }
-    
     .faq__question {
-        padding: var(--space-md);
-        gap: var(--space-sm);
+        padding: var(--space-lg) var(--space-lg);
+        gap: var(--space-md);
+        min-height: 64px;
     }
     
     .faq__question-text {
-        font-size: 0.95rem;
-    }
-    
-    .faq__question-icon {
-        width: 18px;
-        height: 18px;
+        font-size: var(--font-size-base);
     }
     
     .faq__answer-content {
-        padding: var(--space-md);
-        font-size: 0.9rem;
+        padding: var(--space-lg);
+        font-size: var(--font-size-sm);
     }
 }
 
 @media (max-width: 480px) {
-    .faq {
-        padding: var(--space-lg) 0;
-    }
-    
-    .faq__title {
-        font-size: 1.25rem;
+    .faq__item {
+        border-radius: var(--border-radius-lg);
     }
     
     .faq__question {
-        padding: var(--space-sm) var(--space-md);
+        padding: var(--space-md) var(--space-lg);
+        gap: var(--space-sm);
+        min-height: 56px;
     }
     
     .faq__question-text {
-        font-size: 0.9rem;
+        font-size: var(--font-size-sm);
+    }
+    
+    .faq__question-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .faq__question-icon svg {
+        width: 14px;
+        height: 14px;
     }
     
     .faq__answer-content {
-        padding: var(--space-sm) var(--space-md);
-        font-size: 0.85rem;
+        padding: var(--space-md);
+        font-size: var(--font-size-xs);
+    }
+    
+    .faq__column {
+        gap: var(--space-md);
     }
 }
 

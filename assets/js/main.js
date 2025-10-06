@@ -10,7 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Establecer altura inicial para el elemento activo
         if (item.classList.contains('faq__item--active')) {
             const contentHeight = answerContent.scrollHeight;
-            answer.style.maxHeight = contentHeight + 'px';
+            const computedStyle = window.getComputedStyle(answerContent);
+            const paddingTop = parseInt(computedStyle.paddingTop);
+            const paddingBottom = parseInt(computedStyle.paddingBottom);
+            const totalHeight = contentHeight + paddingTop + paddingBottom;
+            answer.style.maxHeight = totalHeight + 'px';
         }
         
         question.addEventListener('click', function() {
@@ -34,7 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 item.classList.add('faq__item--active');
                 const contentHeight = answerContent.scrollHeight;
-                answer.style.maxHeight = contentHeight + 'px';
+                const computedStyle = window.getComputedStyle(answerContent);
+                const paddingTop = parseInt(computedStyle.paddingTop);
+                const paddingBottom = parseInt(computedStyle.paddingBottom);
+                const totalHeight = contentHeight + paddingTop + paddingBottom;
+                answer.style.maxHeight = totalHeight + 'px';
                 question.setAttribute('aria-expanded', 'true');
             }
         });
