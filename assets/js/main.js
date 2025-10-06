@@ -1,0 +1,66 @@
+// ===== FAQ FUNCTIONALITY =====
+document.addEventListener('DOMContentLoaded', function() {
+    const faqItems = document.querySelectorAll('.faq__item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq__question');
+        const answer = item.querySelector('.faq__answer');
+        const answerContent = answer.querySelector('.faq__answer-content');
+        
+        // Establecer altura inicial para el elemento activo
+        if (item.classList.contains('faq__item--active')) {
+            const contentHeight = answerContent.scrollHeight;
+            answer.style.maxHeight = contentHeight + 'px';
+        }
+        
+        question.addEventListener('click', function() {
+            const isActive = item.classList.contains('faq__item--active');
+            
+            // Cerrar todos los otros acordeones con animación suave
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('faq__item--active')) {
+                    otherItem.classList.remove('faq__item--active');
+                    const otherAnswer = otherItem.querySelector('.faq__answer');
+                    otherAnswer.style.maxHeight = '0px';
+                    otherItem.querySelector('.faq__question').setAttribute('aria-expanded', 'false');
+                }
+            });
+            
+            // Toggle el acordeón actual con animación suave
+            if (isActive) {
+                item.classList.remove('faq__item--active');
+                answer.style.maxHeight = '0px';
+                question.setAttribute('aria-expanded', 'false');
+            } else {
+                item.classList.add('faq__item--active');
+                const contentHeight = answerContent.scrollHeight;
+                answer.style.maxHeight = contentHeight + 'px';
+                question.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+});
+
+// ===== SMOOTH SCROLLING PARA NAVEGACIÓN =====
+document.addEventListener('DOMContentLoaded', function() {
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // Solo aplicar scroll suave si el href es un fragmento válido
+            if (href && href !== '#') {
+                const target = document.querySelector(href);
+                
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+});
