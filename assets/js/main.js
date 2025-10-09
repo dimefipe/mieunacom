@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (anyVisible) {
       floatBtn.style.bottom = "-100px"; // se esconde suavemente
     } else {
-      floatBtn.style.bottom = "16px"; // vuelve a subir
+      floatBtn.style.bottom = "24px"; // vuelve a subir
     }
   }, { threshold: 0.1 });
 

@@ -2758,6 +2758,7 @@ img {
     margin-bottom: 16px;
     /* max-width: 300px; */
     text-wrap: balance;
+    min-height: 72px;
 }
 
 .how-it-works__step-mockup {
@@ -2835,6 +2836,10 @@ img {
     .how-it-works__step-title {
         font-size: 1.25rem;
     }
+
+    .how-it-works__step-description {
+        min-height: inherit;
+    }
     
     .how-it-works__step-mockup {
         width: 100%
@@ -2856,6 +2861,10 @@ img {
 }
 
 .results__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     background: #F4FAFB;
     border: 2px solid var(--color-primary-500);
     border-radius: 16px;
@@ -3459,6 +3468,7 @@ img {
     background: var(--color-neutral-50)!important;
     background-color: red;
     border-radius: var(--border-radius-xl);
+    border-radius: 20px;
     border: 1px solid var(--color-neutral-200);
     overflow: hidden;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -3597,7 +3607,7 @@ img {
     }
     
     .faq__question {
-        padding: var(--space-lg) var(--space-lg);
+        /* padding: var(--space-lg) var(--space-lg); */
         gap: var(--space-md);
         min-height: 64px;
     }
@@ -3613,21 +3623,21 @@ img {
 }
 
 @media (max-width: 480px) {
-    .faq__item {
+    /* .faq__item {
         border-radius: var(--border-radius-lg);
-    }
+    } */
     
     .faq__question {
-        padding: var(--space-md) var(--space-lg);
+        /* padding: var(--space-md) var(--space-lg); */
         gap: var(--space-sm);
-        min-height: 56px;
+        /* min-height: 56px; */
     }
     
     .faq__question-text {
         font-size: var(--font-size-sm);
     }
     
-    .faq__question-icon {
+    /* .faq__question-icon {
         width: 20px;
         height: 20px;
     }
@@ -3635,7 +3645,7 @@ img {
     .faq__question-icon svg {
         width: 14px;
         height: 14px;
-    }
+    } */
     
     .faq__answer-content {
         padding: var(--space-md);
@@ -3669,10 +3679,10 @@ img {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url('../img/hero-photo.webp');
+    background-image: url('../img/banner-cta-fondo.webp');
     background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+    background-position: bottom;
+    background-attachment: fixed!important;
     filter: blur(3px);
     transform: scale(1.1);
     z-index: 1;
@@ -4187,7 +4197,7 @@ img {
     background: hsla(193, 66%, 30%, 0.2);
     border-radius: 32px 32px 0 0;
     border-radius: 48px;
-    bottom: 16px;
+    bottom: -100px;
     /* padding: 16px 24px;
     backdrop-filter: blur(8px);
     border: 1px solid hsla(0, 0%, 100%, 0.5);
