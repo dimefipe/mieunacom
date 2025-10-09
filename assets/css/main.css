@@ -3780,6 +3780,7 @@ img {
     font-weight: 300;
     line-height: 1.2;
     margin-bottom: var(--space-lg);
+    text-wrap: balance;
     /* text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); */
 }
 
