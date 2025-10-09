@@ -72,3 +72,27 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+// FLOAT BUTTON FUNCTIONALITY ================================
+document.addEventListener("DOMContentLoaded", () => {
+  const floatBtn = document.querySelector(".cta-float");
+  const targets = document.querySelectorAll(".btn.btn-cta-secondary.btn-lg");
+
+  if (!floatBtn || targets.length === 0) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    // Si al menos uno de los botones está visible, ocultamos el flotante
+    const anyVisible = entries.some(entry => entry.isIntersecting);
+
+    if (anyVisible) {
+      floatBtn.style.bottom = "-100px"; // se esconde suavemente
+    } else {
+      floatBtn.style.bottom = "16px"; // vuelve a subir
+    }
+  }, { threshold: 0.1 });
+
+  // Observa todos los botones
+  targets.forEach(target => observer.observe(target));
+});
+
